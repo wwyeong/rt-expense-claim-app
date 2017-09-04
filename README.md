@@ -1,10 +1,10 @@
 # expense-claim-app
 Small web app allow for users to submit their expenses online
 
-## Description
+## The App
 Basic app that could make a good experience for users to manage and submit their expenses online
 
-## App main features
+## App Features
 1. User login
     * Add data validation
 
