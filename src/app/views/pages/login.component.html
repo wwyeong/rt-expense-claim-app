@@ -1,0 +1,38 @@
+<div class="login-wrapper">
+  <div class="bg-pic animated fadeIn">
+      <img src="assets/img/login-bg.jpg" data-src="assets/img/login-bg.jpg" data-src-retina="assets/img/login-bg.jpg" alt="" class="lazy">
+      <div class="bg-caption pull-bottom sm-pull-bottom text-white p-l-30 m-b-20">
+        <h2 class="semi-bold text-white">Expense claims made easy start from today</h2>
+      </div>
+  </div>
+  <div class="login-container bg-white slide-in">
+    <div class="p-l-50 m-l-20 p-r-50 m-r-20 p-t-50 m-t-30 sm-p-l-15 sm-p-r-15 sm-p-t-40">
+      <img src="assets/img/logo.png" alt="logo" data-src="assets/img/logo.png" data-src-retina="assets/img/logo_2x.png" width="130" height="42">
+      <p class="p-t-35">Sign into your account</p>
+      <form class="p-t-15" action="index.html" novalidate>
+        <form [formGroup]="loginForm" >
+          <div class="form-group">
+            <label for="nf-email">Email</label>
+            <input type="email" formControlName="email" id="nf-email" name="nf-email" class="form-control" placeholder="Enter Email..">
+            <span *ngIf="loginForm.hasError('email', 'email') && loginForm.get('email').touched" data-hint="Please enter the correct email, this email not valid" class="hint-bottom-left-t-error hint-persist" ></span>
+
+          </div>
+          <div class="form-group">
+            <label for="nf-password">Password</label>
+            <input type="password" formControlName="password" id="nf-password" name="nf-password" class="form-control" placeholder="Enter Password..">
+            <span *ngIf="validateInputField(loginForm.controls.password)" data-hint="Please enter your password" class="hint-bottom-left-t-error hint-persist" ></span>
+          </div>
+          <div class="row">
+            <div class="col-md-6 no-padding sm-p-l-10">
+              <div class="checkbox ">
+                <input type="checkbox" value="1" id="checkbox1">
+                <label for="checkbox1">Keep Me Signed in</label>
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-primary btn-cons m-t-10" type="button" (click)="login()" [disabled] = "!loginForm.valid">Sign in</button>
+        </form>
+      </form>
+    </div>
+  </div>
+</div>
