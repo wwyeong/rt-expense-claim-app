@@ -82,7 +82,7 @@
               <span *ngIf="validateInputField(claimForm.controls.bankAccounts)" data-hint="Please select bank" class="hint-bottom-left-t-error hint-persist" ></span>
               <small class="form-text text-muted">Payment will be made to this bank account.</small>
             </div>
-          </div><!--/.row-->          
+          </div><!--/.row-->
         </form>
 
         <form [formGroup]="claimForm" [hidden] = "!_claimConfirmFormPageShow" class="animated fadeIn">
@@ -150,7 +150,7 @@
             </div>
           </div>
         </form>
-        <form [formGroup]="bankForm" novalidate [hidden] = "!_claimRecpBankPageShow" class="animated fadeIn">
+        <form [formGroup]="bankForm" novalidate *ngIf = "_claimRecpBankPageShow" class="animated fadeIn">
           <div class="form-group">
             <label for="bank">Recipient Bank</label>
             <input formControlName="recpBank" name="Recipient Bank" id="bank" autocomplete="off" placeholder="MAYBANK BERHAD" [typeahead]="recpBankList" typeaheadOptionsLimit="5" class="form-control">
@@ -171,8 +171,6 @@
           <div class="form-group">
             <label for="bank">Upload Receipt Image<span class="required-label">*</span></label>
             <image-upload class="receipt-uploader"
-              url="https://httpbin.org/status/200" 
-              [headers]="myHeaders"
               [max]="1"
               [buttonCaption]="'Select Images'"
               [dropBoxMessage]="''"

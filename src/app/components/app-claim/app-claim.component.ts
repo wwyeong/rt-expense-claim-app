@@ -149,6 +149,7 @@ export class AppClaim {
 
   //reset to default
   reset() {
+    this.imageUploadComponent.deleteAll();
 
     this.bankForm = this._fb.group({
       recpBank: ['', [Validators.required]],
@@ -324,7 +325,6 @@ export class AppClaim {
         }
       }
 
-      this.imageUploadComponent.deleteAll();
     } else if (this._claimRecpBankPageShow) { //recipient bank account
       this.showConfirmFormPage();
     } else if (this._claimConfirmFormPageShow) {
@@ -341,7 +341,12 @@ export class AppClaim {
     } else if (this._claimRecpBankPageShow) { //recipient bank account
       this.showRecptUploadPage();
     } else if (this._claimConfirmFormPageShow) { //final confirm expense claim detail and bank detail
-      this.showRecpBankPage();
+      const claimFormBankOptionValue = (<FormGroup>this.claimForm).get('bankAccounts').value;
+      if(claimFormBankOptionValue > -1){
+        this.showRecptUploadPage();
+      }else{
+        this.showRecpBankPage();
+      }
     }
   }
 
