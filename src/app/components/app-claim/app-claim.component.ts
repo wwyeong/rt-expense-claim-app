@@ -14,6 +14,8 @@ import { IMyDpOptions } from 'mydatepicker';
 })
 export class AppClaim {
   @ViewChild('myModal') public childModal:ModalDirective;
+  @ViewChild(ImageUploadComponent) imageUploadComponent: ImageUploadComponent;
+
   @StorageSync('rememberMe') remember: boolean = false;
   @StorageSync('firstVisitHistory') firstVisitHistory: boolean = false;
   @StorageSync('claimHistory') claimHistory: Array<Object> = [];
@@ -132,7 +134,7 @@ export class AppClaim {
   private myDatePickerOptions: IMyDpOptions;
 
 
-  constructor( private _fb: FormBuilder, private commonService: CommonService, private bsModalService: BsModalService , private imageUploadComponent: ImageUploadComponent){
+  constructor( private _fb: FormBuilder, private commonService: CommonService, private bsModalService: BsModalService){
   }
 
   ngOnInit(): void {
@@ -340,11 +342,13 @@ export class AppClaim {
           this.showRecpBankPage();
         }
       }
+      this.imageUploadComponent.deleteAll();
     }else if(this._claimRecpBankPageShow){ //recipient bank account
       this.showConfirmFormPage();
     }else if(this._claimConfirmFormPageShow){
       this.showSuccessPage();
     }else{
+      this.reset();
       this.showClaimFormPage();
     }
   }
@@ -377,9 +381,8 @@ export class AppClaim {
   }
 
   public validateInputField(input:any): boolean {
-    if(input.valid === false && (input.dirty || input.touched)){
-      return true;
-    }
+      return (input.valid === false && (input.dirty || input.touched));
+    
   }
 
   public updateCurrency(currency:string): void {
