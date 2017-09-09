@@ -1,0 +1,239 @@
+<div bsModal #myModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="row modal-header-title">
+          <div class="col-sm-11">
+            <div class="row">
+              <h4 class="modal-title">Expense Claim</h4>
+            </div>
+            <div class="row">
+              <p class="white-space text-nowrap">{{headerSubtitleTxt}}</p>
+            </div>
+          </div>
+          <div class="col-sm-1 text-nowrap">
+            <button type="button" class="close" (click)="myModal.hide()" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-body claim-form">
+        <form [formGroup]="claimForm" novalidate name="cForm" [hidden] = "!_claimFormPageShow" class="animated fadeIn">
+          <div class="row">
+            <div class="form-group col-sm-7">
+              <label for="vat">Cost Center<span class="required-label">*</span></label>
+              <input type="text" class="form-control" formControlName="costCenter" placeholder="Starbuck Coffee">
+              <span *ngIf="validateInputField(claimForm.controls.costCenter)" data-hint="This is required field" class="hint-bottom-left-t-error hint-persist" ></span>
+            </div>
+            <!--<div class="form-group col-sm-4" [hidden] = "true">
+              <label for="postal-code">Date<span class="required-label">*</span></label>
+              <input #dateInput="ngModel" type="text" class="form-control" value="{{ bsValue | date:'yyyy-MM-dd'}}" bsDatepicker (output)="updateDate($event.target.value)" (input)="updateDate($event.target.value)" [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedDate" (activeDateChange)="updateDate($event.target.value)" [(bsValue)]="bsValue">            
+              <span *ngIf="selectedDate === '' && (dateInput.dirty || dateInput.touched)" data-hint="This is required field" class="hint-bottom-left-t-error hint-persist" ></span>
+            </div>-->
+            <div class="form-group col-sm-5">
+              <label for="postal-code">Trans.Date<span class="required-label">*</span></label>
+              <my-date-picker name="mydate" [options]="myDatePickerOptions" formControlName="myDate"></my-date-picker> 
+              <span *ngIf="validateInputField(claimForm.controls.myDate)" data-hint="Transaction Date is require" class="hint-bottom-left-t-error hint-persist" ></span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="desc">Description<span class="required-label">*</span></label>
+            <input type="text" required class="form-control" ng-model="iValueDesc" formControlName="desc" placeholder="Buy client a cup of latte">
+            <span *ngIf="validateInputField(claimForm.controls.desc)" data-hint="This is required field" class="hint-bottom-left-t-error hint-persist" ></span>
+          </div>
+          <div class="form-group">
+            <label for="glcode">GL Code<span class="required-label">*</span></label>
+            <input #glCodeInput="ngModel" name="GL Code" autocomplete="off" placeholder="4327 - Entertainment - Clients" [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedGlcode" (input)="updateGlCode($event.target.value)" [typeahead]="glCodeList" typeaheadOptionsLimit="5" class="form-control">
+            <span *ngIf="selectedGlcode === '' && (glCodeInput.dirty || glCodeInput.touched)" data-hint="This is required field" class="hint-bottom-left-t-error hint-persist" ></span>
+          </div>
+          <div class="row">
+            <div class="form-group col-sm-3">
+              <label for="currency">Currency<span class="required-label">*</span></label>
+            <input #currencyInput="ngModel" name="Currency" id="currency" class="form-control text-uppercase" maxlength="3" (input)="updateCurrency($event.target.value)" [ngModelOptions]="{standalone: true}" (click)="onClickCurrency()" autocomplete="off" [(ngModel)]="iValueCurrency" [typeahead]="currencyList" typeaheadOptionsLimit="5">
+              <span *ngIf="iValueCurrency === '' && (currencyInput.dirty || currencyInput.touched)" data-hint="This is required field" class="hint-bottom-left-t-error hint-persist" ></span>
+            </div>
+            <div class="form-group col-sm-3">
+              <label for="amount">Amount<span class="required-label">*</span></label>
+              <input type="number" formControlName="amount" class="form-control" placeholder="100" (input)="calculateTotalAmount()">
+              <span *ngIf="validateInputField(claimForm.controls.amount)" data-hint="This is required field" class="hint-bottom-left-t-error hint-persist" ></span>
+            </div>
+            <div class="form-group col-sm-3">
+              <label for="gst">GST(%)<span class="required-label">*</span></label>
+              <input type="number" formControlName="gst" class="form-control" placeholder="6" min="0" max="99" maxlength="99" (input)="calculateTotalAmount()">
+              <span *ngIf="validateInputField(claimForm.controls.gst)" data-hint="This is required field" class="hint-bottom-left-t-error hint-persist" ></span>
+            </div>
+            <div class="form-group col-sm-3">
+              <label for="exchangeRate">EXC.Rate<span class="required-label">*</span></label>
+            <input type="number" formControlName="excRate" class="form-control" placeholder="0.23" (input)="updateExcRate()" ng-model="iValueExcRate | number : 2" step="0.01">
+              <span *ngIf="validateInputField(claimForm.controls.excRate)" data-hint="This is required field" class="hint-bottom-left-t-error hint-persist" ></span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6"></div>
+            <div class="form-group col-sm-6 text-right">
+              <label for="totalAmount">Total Amount(MYR)</label>
+              <input type="number" formControlName="totalAmount" class="form-control text-right" placeholder="100" [value]="getTotalAmount()" (input)="iValueExcRate=$event.target.value">
+              <span *ngIf="validateInputField(claimForm.controls.totalAmount)" data-hint="This is required field" class="hint-bottom-left-t-error hint-persist" ></span>
+            </div>
+          </div>
+          <div class="row m-b-20" [hidden]="bankBookmarks === null || bankBookmarks.length === 0">
+            <div class="form-group col-sm-12">
+              <label for="ccmonth">Bank Account</label>
+              <!--<select formControlName="bankAccounts" class="form-control" id="ccmonth">
+                <option *ngFor="item of bankBookmarks; let i=index" [value]="i">{{ item.recpBank }}</option>
+              </select>-->
+              <select formControlName="bankAccounts" class="form-control">
+                  <option value=null>Please select bank</option>
+                  <option *ngFor="let item of bankBookmarks; let i=index;" [value]="i">{{item.recpBank}}</option>
+                  <option value='others'>Others</option>
+              </select>
+              <span *ngIf="validateInputField(claimForm.controls.bankAccounts)" data-hint="Please select bank" class="hint-bottom-left-t-error hint-persist" ></span>
+              <small class="form-text text-muted">Payment will be made to this bank account.</small>
+            </div>
+          </div><!--/.row-->          
+        </form>
+
+        <form [formGroup]="claimForm" [hidden] = "!_claimConfirmFormPageShow" class="animated fadeIn">
+          <div class="row">
+            <label class="col-sm-4 form-control-label">Employee Name</label>
+            <label class="col-sm-1 form-control-label">:</label>
+            <div class="col-sm-7">
+              <p class="form-control-static">Tan Ah Kow</p>
+            </div>
+          </div>          
+          <div class="row">
+            <label class="col-md-4 form-control-label">Employee ID</label>
+            <label class="col-md-1 form-control-label">:</label>
+            <div class="col-md-7">
+              <p class="form-control-static">D-123456</p>
+            </div>
+          </div>
+          <div class="row">
+            <label class="col-md-4 form-control-label">Branch Code:</label>
+            <label class="col-md-1 form-control-label">:</label>
+            <div class="col-md-7">
+              <p class="form-control-static">PG-1</p>
+            </div>
+          </div>            
+          <div class="row">
+            <label class="col-md-4 form-control-label">GL Code</label>
+            <label class="col-md-1 form-control-label">:</label>
+            <div class="col-md-7">
+              <p class="form-control-static">{{selectedGlcode}}</p>
+            </div>
+          </div>
+          <div class="row">
+            <label class="col-md-4 form-control-label">Transaction Date</label>
+            <label class="col-md-1 form-control-label">:</label>
+            <div class="col-md-7">
+              <p class="form-control-static">{{getFormartedDate(claimForm.controls['myDate'].value['date'])}}</p>
+            </div>
+          </div>
+          <div class="row">
+            <label class="col-md-4 form-control-label">Amount To Claim</label>
+            <label class="col-md-1 form-control-label">:</label>
+            <div class="col-md-7">
+              <p class="form-control-static">{{getClaimFormValue('totalAmount')}}</p>
+            </div>
+          </div>
+          <div class="row">
+            <label class="col-md-4 form-control-label">Bank</label>
+            <label class="col-md-1 form-control-label">:</label>
+            <div class="col-md-7">
+              <p class="form-control-static">{{getBankFormValue('recpBank')}}</p>
+            </div>
+          </div>
+          <div class="row">
+            <label class="col-md-4 form-control-label">To Account Number</label>
+            <label class="col-md-1 form-control-label">:</label>
+            <div class="col-md-7">
+              <p class="form-control-static">{{getBankFormValue('recpAccNum')}}</p>
+            </div>
+          </div>
+          <div class="row">
+            <label class="col-md-4 form-control-label">Account Holder Name</label>
+            <label class="col-md-1 form-control-label">:</label>            
+            <div class="col-md-7">
+              <p class="form-control-static">{{getBankFormValue('recpAccName')}}</p>
+            </div>
+          </div>
+        </form>
+        <form [formGroup]="bankForm" novalidate [hidden] = "!_claimRecpBankPageShow" class="animated fadeIn">
+          <div class="form-group">
+            <label for="bank">Recipient Bank</label>
+            <input formControlName="recpBank" name="Recipient Bank" id="bank" autocomplete="off" placeholder="MAYBANK BERHAD" [(ngModel)]="selectedRecpBank" [typeahead]="recpBankList" typeaheadOptionsLimit="5" class="form-control">
+            <span *ngIf="validateInputField(bankForm.controls.recpBank)" data-hint="This is required field" class="hint-bottom-left-t-error hint-persist" ></span>
+          </div>
+          <div class="form-group">
+            <label for="recpName">Recipient Name</label>
+            <input formControlName="recpAccName" type="text" class="form-control" id="recpName" placeholder="TAN AH KOW">
+            <span *ngIf="validateInputField(bankForm.controls.recpAccName)" data-hint="This is required field" class="hint-bottom-left-t-error hint-persist" ></span>
+          </div>
+          <div class="form-group">
+            <label for="accNumber">Account Number</label>
+            <input formControlName="recpAccNum" type="number" class="form-control" id="accNumber" placeholder="0123456789">
+            <span *ngIf="validateInputField(bankForm.controls.recpAccNum)" data-hint="This is required field" class="hint-bottom-left-t-error hint-persist" ></span>
+          </div>
+        </form>
+        <form [hidden] = "!_claimRecptUploadPageShow" class="animated fadeIn">
+          <div class="form-group">
+            <label for="bank">Upload Receipt Image<span class="required-label">*</span></label>
+            <image-upload class="receipt-uploader"
+              url="https://httpbin.org/status/200" 
+              [headers]="myHeaders"
+              [style]="receipt-uploader"
+              [max]="1"
+              [buttonCaption]="'Select Images'"
+              [dropBoxMessage]="''"
+              (onFileUploadFinish)="imageUploaded($event)"
+              (onRemove)="imageRemoved($event)"
+              (isPending)="disableSendButton($event)"
+            ></image-upload>
+          </div>
+        </form>
+        <form [hidden] = "!_claimSuccessPageShow" class="animated fadeIn">
+          <div class="form-group">  
+            <div class="row p-t-50">   
+              <div class="col-sm-12 text-center">
+                <div class="icon icon--order-success svg">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="72px" height="72px">
+                    <g fill="none" stroke="#8EC343" stroke-width="2">
+                      <circle cx="36" cy="36" r="35" style="stroke-dasharray:240px, 240px; stroke-dashoffset: 480px;"></circle>
+                      <path d="M17.417,37.778l9.93,9.909l25.444-25.393" style="stroke-dasharray:50px, 50px; stroke-dashoffset: 0px;"></path>
+                    </g>
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <!--<i class="fa success-sent-icon" [ngClass]="{ 'scale-sent-icon': showCheckIcon }" aria-hidden="true"></i>-->
+            <div class="row">   
+              <div class="form-group col-sm-12 p-t-30 text-center p-t-30">
+                <h5>Claim Form Submitted Successfully!</h5>
+              </div>
+            </div>
+            <div class="row">   
+              <div class="form-group col-sm-12 text-center p-t-20">
+                <button type="button" class="btn btn-success success-sent-form-button" (click)="myModal.hide()">Done</button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-sm-12 text-center">
+                <button type="button" class="btn btn-primary success-sent-form-button" (click)="goToNextPage()">More Claim?</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <!--<button type="button" class="btn btn-secondary" (click)="myModal.hide()">Cancel</button>-->
+        <button type="button" [hidden] = "_claimFormPageShow || _claimSuccessPageShow" class="btn btn-primary btn-outline-primary" (click)="goToPreviousPage()">Back</button>
+        <!--<button type="button" [hidden] = "!_claimFormPageShow" class="btn btn-primary">Saved Add Another Claim</button>-->
+        <button type="button" [hidden] = "(_claimFormPageShow || _claimRecpBankPageShow || _claimRecptUploadPageShow ? false : true)" class="btn btn-primary" (click)="goToNextPage()" [disabled]="!validateFormValid()">Next</button>
+        <button type="button" [hidden] = "!_claimRecpBankPageShow" class="btn btn-primary" (click)="onBookmarkContinue()" [disabled]="!validateFormValid()">Bookmark And Continue</button>
+        <button type="button" [hidden] = "!_claimConfirmFormPageShow" class="btn btn-success success-sent-form-button" (click)="onSubmitClaimForm()">Confirm</button>
+
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
