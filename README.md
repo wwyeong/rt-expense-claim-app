@@ -31,7 +31,7 @@ git clone https://github.com/wwyeong/rt-expense-claim-app.git
 # change directory to our repo
 cd rt-expense-claim-app
 
-# install the repo with npm
+# install the repo with npm (you can also using 'yarn' to install)
 npm install
 
 # install the repo with yarn
