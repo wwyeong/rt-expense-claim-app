@@ -12,7 +12,7 @@ export class LoginComponent {
 
   constructor(private router: Router, private _fb: FormBuilder) {
   }
-''
+
   ngOnInit(): void {
     this.loginForm = this._fb.group({
         email: ['', [Validators.email]],

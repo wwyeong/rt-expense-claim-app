@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 // Forms Component
 
-import { TablesComponent } from './tables.component';
+import { HistoryComponent } from './history.component';
 
 
 // Components Routing
@@ -19,7 +19,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     ComponentsRoutingModule,
   ],
   declarations: [
-    TablesComponent,
+    HistoryComponent,
   ]
 })
 export class ComponentsModule { }

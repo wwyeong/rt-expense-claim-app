@@ -16,7 +16,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of claimHistory | paginate: { itemsPerPage: 5, currentPage: p }">
+              <tr *ngFor="let item of claimHistory | paginate: { itemsPerPage: 5, currentPage: page }">
                 <td>{{ item.submitDate }}</td>
                 <td>{{ item.glCode }}</td>
                 <td>{{ item.totalAmount }}</td>
@@ -27,7 +27,7 @@
           </table>
         </div>
         <div class="card-body">
-          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          <pagination-controls (pageChange)="page = $event"></pagination-controls>
         </div>
       </div>
     </div>

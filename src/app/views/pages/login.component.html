@@ -13,8 +13,8 @@
         <form [formGroup]="loginForm" >
           <div class="form-group">
             <label for="nf-email">Email</label>
-            <input type="email" formControlName="email" id="nf-email" name="nf-email" class="form-control" placeholder="Enter Email..">
-            <span *ngIf="loginForm.hasError('email', 'email') && loginForm.get('email').touched" data-hint="Please enter the correct email, this email not valid" class="hint-bottom-left-t-error hint-persist" ></span>
+            <input type="text" formControlName="email" id="nf-email" name="nf-email" class="form-control" placeholder="Enter Email..">
+            <span *ngIf="loginForm.hasError('email', ['email']) && loginForm.get('email').touched" data-hint="Please enter the correct email, this email not valid" class="hint-bottom-left-t-error hint-persist" ></span>
 
           </div>
           <div class="form-group">

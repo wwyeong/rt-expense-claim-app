@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { TablesComponent } from './tables.component';
+import { HistoryComponent } from './history.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: TablesComponent,
+    component: HistoryComponent,
     data: {
       title: 'Claims History'
     }

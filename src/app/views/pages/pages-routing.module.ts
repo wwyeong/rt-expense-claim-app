@@ -3,24 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { LoginComponent } from './login.component';
 
-// const routes: Routes = [
-//   {
-//     path: '',
-//     data: {
-//       title: 'Example Pages'
-//     },
-//     children: [
-//       {
-//         path: 'login',
-//         component: LoginComponent,
-//         data: {
-//           title: 'Login Page'
-//         }
-//       }
-//     ]
-//   }
-// ];
-
 const routes: Routes = [
   {
     path: '',

@@ -13,11 +13,9 @@ export class AppFooter {
   @StorageSync('claimHistory') claimHistory: Array<Object> = [];
   @StorageSync('firstVisitHistory') firstVisitHistory: boolean = false;
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
-  constructor(private commonService : CommonService, private router: Router) {
-  }
+  constructor(private commonService : CommonService, private router: Router) {}
 
   onClickAddClaim(){
     //reset to false
@@ -25,19 +23,15 @@ export class AppFooter {
   }
 
   onClickClaimHistory(){
-    console.log('reset!@@@');
     this.firstVisitHistory = false;
-    console.log(this.firstVisitHistory);
     this.router.navigateByUrl('/history');
   }  
 
   onClickGoDesk(){
-    this.router.navigateByUrl('/dashboard');//aaa
+    this.router.navigateByUrl('/dashboard');
   }    
 
   resetHint(){
     this.firstVisitHistory = false;
   }    
-
-  
 }

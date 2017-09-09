@@ -4,20 +4,18 @@ import {PaginatePipe, PaginationService} from 'ngx-pagination';
 
 @Component({
   selector: 'course',
-  templateUrl: 'tables.component.html',
+  templateUrl: 'history.component.html',
   providers: [PaginationService],
 })
-export class TablesComponent {
+export class HistoryComponent {
   @StorageSync('claimHistory') claimHistory;
   @StorageSync('firstVisit') firstVisitHistory = false;
-  p: number = 1;
-  constructor() { 
 
-  }
+  page: number = 1;
+
+  constructor() { }
 
   ngOnInit(): void {
-    console.log('claimHistory!!!');
-    console.log(this.claimHistory);
     this.firstVisitHistory = true;
   }
 

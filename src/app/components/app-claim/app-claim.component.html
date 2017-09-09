@@ -69,16 +69,11 @@
             <div class="form-group col-sm-6 text-right">
               <h6 class="p-t-20">Total Amount(MYR)</h6>
               <div>{{iTotalAmount}}</div>
-              <!--<input type="number" formControlName="totalAmount" class="form-control text-right" placeholder="100" [value]="getTotalAmount()" (input)="iValueExcRate=$event.target.value" disabled>-->
-              <!--<span *ngIf="validateInputField(claimForm.controls.totalAmount)" data-hint="This is required field" class="hint-bottom-left-t-error hint-persist" ></span>-->
             </div>
           </div>
           <div class="row m-b-20" [hidden]="bankBookmarks === null || bankBookmarks.length === 0">
             <div class="form-group col-sm-12">
               <label for="ccmonth">Bank Account</label>
-              <!--<select formControlName="bankAccounts" class="form-control" id="ccmonth">
-                <option *ngFor="item of bankBookmarks; let i=index" [value]="i">{{ item.recpBank }}</option>
-              </select>-->
               <select formControlName="bankAccounts" class="form-control">
                   <option value=null>Please select bank</option>
                   <option *ngFor="let item of bankBookmarks; let i=index;" [value]="i">{{item.recpBank}}</option>
@@ -158,7 +153,7 @@
         <form [formGroup]="bankForm" novalidate [hidden] = "!_claimRecpBankPageShow" class="animated fadeIn">
           <div class="form-group">
             <label for="bank">Recipient Bank</label>
-            <input formControlName="recpBank" name="Recipient Bank" id="bank" autocomplete="off" placeholder="MAYBANK BERHAD" [(ngModel)]="selectedRecpBank" [typeahead]="recpBankList" typeaheadOptionsLimit="5" class="form-control">
+            <input formControlName="recpBank" name="Recipient Bank" id="bank" autocomplete="off" placeholder="MAYBANK BERHAD" [typeahead]="recpBankList" typeaheadOptionsLimit="5" class="form-control">
             <span *ngIf="validateInputField(bankForm.controls.recpBank)" data-hint="This is required field" class="hint-bottom-left-t-error hint-persist" ></span>
           </div>
           <div class="form-group">
@@ -178,13 +173,11 @@
             <image-upload class="receipt-uploader"
               url="https://httpbin.org/status/200" 
               [headers]="myHeaders"
-              [style]="receipt-uploader"
               [max]="1"
               [buttonCaption]="'Select Images'"
               [dropBoxMessage]="''"
               (onFileUploadFinish)="imageUploaded($event)"
               (onRemove)="imageRemoved($event)"
-              (isPending)="disableSendButton($event)"
             ></image-upload>
           </div>
         </form>
@@ -202,7 +195,6 @@
                 </div>
               </div>
             </div>
-            <!--<i class="fa success-sent-icon" [ngClass]="{ 'scale-sent-icon': showCheckIcon }" aria-hidden="true"></i>-->
             <div class="row">   
               <div class="form-group col-sm-12 p-t-30 text-center p-t-30">
                 <h5>Claim Form Submitted Successfully!</h5>
@@ -222,9 +214,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        <!--<button type="button" class="btn btn-secondary" (click)="myModal.hide()">Cancel</button>-->
         <button type="button" [hidden] = "_claimFormPageShow || _claimSuccessPageShow" class="btn btn-primary btn-outline-primary" (click)="goToPreviousPage()">Back</button>
-        <!--<button type="button" [hidden] = "!_claimFormPageShow" class="btn btn-primary">Saved Add Another Claim</button>-->
         <button type="button" [hidden] = "(_claimFormPageShow || _claimRecpBankPageShow || _claimRecptUploadPageShow ? false : true)" class="btn btn-primary" (click)="goToNextPage()" [disabled]="!validateFormValid()">Next</button>
         <button type="button" [hidden] = "!_claimRecpBankPageShow" class="btn btn-primary" (click)="onBookmarkContinue()" [disabled]="!validateFormValid()">Bookmark And Continue</button>
         <button type="button" [hidden] = "!_claimConfirmFormPageShow" class="btn btn-success success-sent-form-button" (click)="onSubmitClaimForm()">Confirm</button>
