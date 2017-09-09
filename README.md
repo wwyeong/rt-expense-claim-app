@@ -25,5 +25,18 @@ Check out the live app here: https://expenses-claim.firebaseapp.com
 ## Quick Start
 
 ```
+# clone our repo
+git clone --depth 1 https://github.com/wwyeong/rt-expense-claim-app.git
+
+# change directory to our repo
+cd rt-expense-claim-app
+
+# install the repo with npm
 npm install
+
+# install the repo with yarn
+yarn
+
+# start the server
+ng serve
 ```
