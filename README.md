@@ -26,7 +26,7 @@ Check out the live app here: https://expenses-claim.firebaseapp.com
 
 ```
 # clone our repo
-git clone --depth 1 https://github.com/wwyeong/rt-expense-claim-app.git
+git clone https://github.com/wwyeong/rt-expense-claim-app.git
 
 # change directory to our repo
 cd rt-expense-claim-app
