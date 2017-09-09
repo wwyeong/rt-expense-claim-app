@@ -17,8 +17,7 @@ Check out the live app here: https://expenses-claim.firebaseapp.com
 
 3. View a list of submitted expense claims
     
-
-## Additioner Features
+## Additional Features
 - Able to bookmark bank account
 - Able to upload receipt photo
 
