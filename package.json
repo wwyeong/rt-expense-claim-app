@@ -26,6 +26,7 @@
     "angular2-image-upload": "^0.6.6",
     "angular2-localstorage": "^0.4.0",
     "angular2-storage-sync": "^0.1.0",
+    "bootstrap": "^4.0.0-beta",
     "core-js": "2.5.0",
     "mydatepicker": "^2.0.29",
     "ngx-bootstrap": "1.9.1",
