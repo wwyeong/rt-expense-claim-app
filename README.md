@@ -1,4 +1,7 @@
 # expense-claim-app
+Small web app allow for users to submit their expenses online
+
+## The App
 Basic app that could make a good experience for users to manage and submit their expenses online
 
 ## Demo
@@ -14,8 +17,13 @@ Check out the live app here: https://expenses-claim.firebaseapp.com
 
 3. View a list of submitted expense claims
     
-## Additioner Features
-1. Submit new expense claims
-    * Able to bookmark bank account
-    * Able to upload receipt photo
 
+## Additioner Features
+- Able to bookmark bank account
+- Able to upload receipt photo
+
+## Quick Start
+
+```
+npm install
+```
