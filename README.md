@@ -40,3 +40,4 @@ yarn
 # start the server
 ng serve
 ```
+go to http://localhost:4200 in your browser
