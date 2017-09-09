@@ -429,7 +429,9 @@ export class AppClaim {
     sumTotal = parseFloat(sumTotal.toFixed(2));
 
     this.claimForm.patchValue({totalAmount: sumTotal.toString()});
-
+    
+    this.iTotalAmount = sumTotal;
+    
     return this.iTotalAmount;
   }
 

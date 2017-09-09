@@ -19,20 +19,15 @@
         </div>
       </div>
       <div class="modal-body claim-form">
-        <form [formGroup]="claimForm" novalidate name="cForm" [hidden] = "!_claimFormPageShow" class="animated fadeIn">
+        <form [formGroup]="claimForm" novalidate name="cForm" *ngIf = "_claimFormPageShow" class="animated fadeIn">
           <div class="row">
             <div class="form-group col-sm-7">
               <label for="vat">Cost Center<span class="required-label">*</span></label>
-              <input type="text" class="form-control" formControlName="costCenter" placeholder="Starbuck Coffee">
+              <input type="text" class="form-control" formControlName="costCenter" placeholder="eg. Management">
               <span *ngIf="validateInputField(claimForm.controls.costCenter)" data-hint="This is required field" class="hint-bottom-left-t-error hint-persist" ></span>
             </div>
-            <!--<div class="form-group col-sm-4" [hidden] = "true">
-              <label for="postal-code">Date<span class="required-label">*</span></label>
-              <input #dateInput="ngModel" type="text" class="form-control" value="{{ bsValue | date:'yyyy-MM-dd'}}" bsDatepicker (output)="updateDate($event.target.value)" (input)="updateDate($event.target.value)" [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedDate" (activeDateChange)="updateDate($event.target.value)" [(bsValue)]="bsValue">            
-              <span *ngIf="selectedDate === '' && (dateInput.dirty || dateInput.touched)" data-hint="This is required field" class="hint-bottom-left-t-error hint-persist" ></span>
-            </div>-->
             <div class="form-group col-sm-5">
-              <label for="postal-code">Trans.Date<span class="required-label">*</span></label>
+              <label for="postal-code">Date<span class="required-label">*</span></label>
               <my-date-picker name="mydate" [options]="myDatePickerOptions" formControlName="myDate"></my-date-picker> 
               <span *ngIf="validateInputField(claimForm.controls.myDate)" data-hint="Transaction Date is require" class="hint-bottom-left-t-error hint-persist" ></span>
             </div>
@@ -72,9 +67,10 @@
           <div class="row">
             <div class="col-sm-6"></div>
             <div class="form-group col-sm-6 text-right">
-              <label for="totalAmount">Total Amount(MYR)</label>
-              <input type="number" formControlName="totalAmount" class="form-control text-right" placeholder="100" [value]="getTotalAmount()" (input)="iValueExcRate=$event.target.value">
-              <span *ngIf="validateInputField(claimForm.controls.totalAmount)" data-hint="This is required field" class="hint-bottom-left-t-error hint-persist" ></span>
+              <h6 class="p-t-20">Total Amount(MYR)</h6>
+              <div>{{iTotalAmount}}</div>
+              <!--<input type="number" formControlName="totalAmount" class="form-control text-right" placeholder="100" [value]="getTotalAmount()" (input)="iValueExcRate=$event.target.value" disabled>-->
+              <!--<span *ngIf="validateInputField(claimForm.controls.totalAmount)" data-hint="This is required field" class="hint-bottom-left-t-error hint-persist" ></span>-->
             </div>
           </div>
           <div class="row m-b-20" [hidden]="bankBookmarks === null || bankBookmarks.length === 0">
