@@ -32,16 +32,18 @@
               <span *ngIf="validateInputField(claimForm.controls.myDate)" data-hint="Transaction Date is require" class="hint-bottom-left-t-error hint-persist" ></span>
             </div>
           </div>
-          <div class="form-group">
-            <label for="desc">Description<span class="required-label">*</span></label>
-            <input type="text" required class="form-control" ng-model="iValueDesc" formControlName="desc" placeholder="Buy client a cup of latte">
-            <span *ngIf="validateInputField(claimForm.controls.desc)" data-hint="This is required field" class="hint-bottom-left-t-error hint-persist" ></span>
-          </div>
-          <div class="form-group">
-            <label for="glcode">GL Code<span class="required-label">*</span></label>
-            <input #glCodeInput="ngModel" name="GL Code" autocomplete="off" placeholder="4327 - Entertainment - Clients" [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedGlcode" (input)="updateGlCode($event.target.value)" [typeahead]="glCodeList" typeaheadOptionsLimit="5" class="form-control">
-            <span *ngIf="selectedGlcode === '' && (glCodeInput.dirty || glCodeInput.touched)" data-hint="This is required field" class="hint-bottom-left-t-error hint-persist" ></span>
-          </div>
+          <div class="row">
+            <div class="form-group col-sm-7">
+              <label for="desc">Description<span class="required-label">*</span></label>
+              <input type="text" required class="form-control" ng-model="iValueDesc" formControlName="desc" placeholder="Buy client a cup of latte">
+              <span *ngIf="validateInputField(claimForm.controls.desc)" data-hint="This is required field" class="hint-bottom-left-t-error hint-persist" ></span>
+            </div>
+            <div class="form-group col-sm-5">
+              <label for="glcode">GL Code<span class="required-label">*</span></label>
+              <input #glCodeInput="ngModel" name="GL Code" autocomplete="off" placeholder="4327 - Entertainment - Clients" [ngModelOptions]="{standalone: true}" [(ngModel)]="selectedGlcode" (input)="updateGlCode($event.target.value)" [typeahead]="glCodeList" typeaheadOptionsLimit="5" class="form-control">
+              <span *ngIf="selectedGlcode === '' && (glCodeInput.dirty || glCodeInput.touched)" data-hint="This is required field" class="hint-bottom-left-t-error hint-persist" ></span>
+            </div>
+          </div>          
           <div class="row">
             <div class="form-group col-sm-3">
               <label for="currency">Currency<span class="required-label">*</span></label>
