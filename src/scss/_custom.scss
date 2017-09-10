@@ -16,6 +16,24 @@ body {
   padding: 30px 30px;
 }
 
+@media (max-width: 991px){
+  //grid
+  .main .container-fluid {
+    padding: 30px 10px;
+  }
+}
+
+@media (max-width: 991px){
+    .t-aeb_list {
+        width: 55px;
+        height: 55px;
+    }
+    .t-aeb_add {
+        width: 55px;
+        height: 55px;
+    }    
+}
+
 //input
 .mydp {
     width: 100% !important;
@@ -61,7 +79,6 @@ pagination-controls{
     border-bottom: 0px;
   }
   .claim-history-card{
-    height: 258px;
   }
   
   .card-body{
@@ -106,7 +123,8 @@ pagination-controls{
       border: $gray-300 dashed 1px;
       height: 250px;
       width:100%;
-      background: url('../assets/img/dragdrop.png');
+      background-repeat: no-repeat;
+      background-image: url('../assets/img/dragdrop.png');
       .image {
         width:100%;
         height: 250px;
@@ -295,7 +313,6 @@ bs-datepicker-container {
 }
 
 .modal-body.claim-form{
-    height: 382px;    
     padding-top: 0px;
     padding-bottom: 0px;
 }
