@@ -7,6 +7,10 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
+.app-body .main {
+  filter: saturate(45%);
+}
+
 //grid
 .main .container-fluid {
   padding: 30px 30px;
@@ -100,12 +104,12 @@ pagination-controls{
 
     .image-container {
       border: $gray-300 dashed 1px;
-      height: 350px;
+      height: 250px;
       width:100%;
       background: url('../assets/img/dragdrop.png');
       .image {
         width:100%;
-        height: 350px;
+        height: 250px;
         background-size: 100% auto;
         margin: 0px;
       }
@@ -183,8 +187,8 @@ bs-datepicker-container {
 }
 
 .t-aeb_list {
-    width: 77px;
-    height: 77px;
+    width: 66px;
+    height: 66px;
     position: relative;
     background-image: url('../assets/fonts/icon-list-history.svg');
     text-align: center;
@@ -204,8 +208,8 @@ bs-datepicker-container {
 }
 
 .t-aeb_add {
-    width: 77px;
-    height: 77px;
+    width: 66px;
+    height: 66px;
     background-image: url('../assets/fonts/icon-plus.svg');
     text-align: center;
     background-repeat: repeat,no-repeat;
@@ -240,14 +244,14 @@ bs-datepicker-container {
     }    
 }
 
-@media (max-height: 600px){
-    .app-icon-base {
-      top: 100px;
-      -webkit-transition: all .3s ease-in-out;
-      -moz-transition: all .3s ease-in-out;
-      transition: all .3s ease-in-out;
-    }
-}
+// @media (max-height: 600px){
+//     .app-icon-base {
+//       top: 100px;
+//       -webkit-transition: all .3s ease-in-out;
+//       -moz-transition: all .3s ease-in-out;
+//       transition: all .3s ease-in-out;
+//     }
+// }
 
 //sidebar
 
@@ -291,7 +295,7 @@ bs-datepicker-container {
 }
 
 .modal-body.claim-form{
-    height: 472px;    
+    height: 382px;    
     padding-top: 0px;
     padding-bottom: 0px;
 }
